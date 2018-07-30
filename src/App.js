@@ -30,13 +30,17 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+      <h1>Lafayette, LA Weather Forecast</h1>
+      <h3>Mean</h3>
         <div>{this.state.weatherData.mean}</div>
         <ul>
+      <h3>Median(s)</h3>
           {this.state.weatherData.median.map(number => {
             return <li>{number}</li>
           })}
         </ul>
         <ul>
+        <h3>Mode(s)</h3>
           {this.state.weatherData.mode.map(number => {
             return <li>{number}</li>
           })}
