@@ -1,3 +1,5 @@
+This is a stand alone React application that takes my Weather API and dynamically updates the mean/median/mode according to the user's location. 
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
