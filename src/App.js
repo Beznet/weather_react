@@ -1,22 +1,46 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Inputs from "./components/inputs";
+import Weather from "./components/weather";
 import './App.css';
 
-class App extends Component {
+class App extends React.Component {
   state = {
+
     weatherData: {
       mean: '',
       median: [],
       mode: []
-    }
+    },
+
+    city: '',
+    country: ''
+
   }
 
   componentDidMount() {
     this.getData();
   }
 
-  getData() {
-    fetch('https://beznet-weather-forecast-app.herokuapp.com')
+  changeCity = (event) => {
+
+    this.setState({city: event.target.value});
+  }
+
+  changeCountry = (event) => {
+
+    this.setState({country: event.target.value});
+  }
+
+  getData = async (event) => {
+    if(event) {
+      event.preventDefault();
+    }
+    
+    let url = `https://beznet-weather-forecast-app.herokuapp.com/${this.state.city}/${this.state.country}`;
+
+    fetch(url)
+
+
     .then(response => {
       return response.json();
     })
@@ -27,23 +51,27 @@ class App extends Component {
     .catch(error => console.log(error));
   }
 
+
   render() {
     return (
       <div className="App">
-      <h1>Lafayette, LA Weather Forecast</h1>
-      <h3>Mean</h3>
-        <div>{this.state.weatherData.mean}</div>
-      <h3>Median</h3>
-          <div>{this.state.weatherData.median}</div>
-        <ul>
-      <h3>Mode(s)</h3>
-          {this.state.weatherData.mode.map(number => {
-            return <li>{number}</li>
+
+      <h3>Weather Forecast</h3>
+
+        <Inputs getData={this.getData} changeCity={this.changeCity} changeCountry={this.changeCountry} />
+
+        <Weather 
+          mean={this.state.weatherData.mean}
+          median={this.state.weatherData.median}
+          mode={this.state.weatherData.mode.map(number => {
+            return <li> {number} </li>;
           })}
-        </ul>
+        />
+
       </div>
+
     );
   }
-}
+};
 
 export default App;
